@@ -1,0 +1,101 @@
+[
+  {
+    "id": "EXP-008",
+    "title": "Human-readable release notes",
+    "owner": "Maya Chen",
+    "status": "validated",
+    "startedAt": "2026-08-04",
+    "updatedAt": "2026-08-22",
+    "tags": ["content", "activation"],
+    "hypothesis": "Replacing technical changelogs with outcome-led stories will increase feature discovery among non-technical workspace admins.",
+    "successCriteria": ["20% lift in release-note click-through", "At least 40% of readers visit a featured workflow", "No increase in support clarification requests"],
+    "findingsFile": "exp-008.md",
+    "cost": { "money": 420, "hours": 26, "currency": "USD" },
+    "artifacts": [
+      { "label": "Copy study", "url": "https://github.com/paulweezydesign/experiments/tree/main/artifacts/release-notes" },
+      { "label": "Prototype", "url": "https://github.com/paulweezydesign/experiments" }
+    ],
+    "linearIssue": { "label": "PAU-18", "url": "https://linear.app" },
+    "repository": { "label": "experiments", "url": "https://github.com/paulweezydesign/experiments" },
+    "decisions": [
+      { "date": "2026-08-22", "title": "Validate the narrative format", "rationale": "The primary metric cleared its threshold and qualitative feedback showed higher comprehension.", "author": "Maya Chen" },
+      { "date": "2026-08-11", "title": "Extend the sample", "rationale": "Early engagement was positive, but the first cohort was too small to call.", "author": "Eli Park" }
+    ]
+  },
+  {
+    "id": "EXP-011",
+    "title": "Contextual onboarding checklist",
+    "owner": "Noah Williams",
+    "status": "running",
+    "startedAt": "2026-08-18",
+    "updatedAt": "2026-08-25",
+    "tags": ["onboarding", "retention"],
+    "hypothesis": "Adapting onboarding tasks to a team's stated goal will shorten time-to-first-value for new workspaces.",
+    "successCriteria": ["Median time-to-value below 18 minutes", "60% checklist completion", "Day-seven retention improves by 8%"],
+    "findingsFile": "exp-011.md",
+    "cost": { "money": 180, "hours": 18, "currency": "USD" },
+    "artifacts": [{ "label": "Test protocol", "url": "https://github.com/paulweezydesign/experiments" }],
+    "linearIssue": { "label": "PAU-27", "url": "https://linear.app" },
+    "repository": { "label": "experiments", "url": "https://github.com/paulweezydesign/experiments" },
+    "decisions": [
+      { "date": "2026-08-18", "title": "Begin with two goal cohorts", "rationale": "Limiting variants keeps the test interpretable while covering the largest signup segments.", "author": "Noah Williams" }
+    ]
+  },
+  {
+    "id": "EXP-014",
+    "title": "Ambient activity digest",
+    "owner": "Ava Rodriguez",
+    "status": "proposed",
+    "startedAt": null,
+    "updatedAt": "2026-08-24",
+    "tags": ["collaboration", "email"],
+    "hypothesis": "A low-frequency digest of meaningful workspace changes will reconnect occasional collaborators without creating notification fatigue.",
+    "successCriteria": ["15% return-to-workspace rate", "Unsubscribe rate below 2%", "At least 25% of returners contribute within a session"],
+    "findingsFile": "exp-014.md",
+    "cost": { "money": 0, "hours": 6, "currency": "USD" },
+    "artifacts": [{ "label": "Concept brief", "url": "https://github.com/paulweezydesign/experiments" }],
+    "linearIssue": { "label": "PAU-30", "url": "https://linear.app" },
+    "repository": null,
+    "decisions": [
+      { "date": "2026-08-24", "title": "Request privacy review before build", "rationale": "Digest selection depends on summarizing teammate activity and needs clear boundaries.", "author": "Ava Rodriguez" }
+    ]
+  },
+  {
+    "id": "EXP-005",
+    "title": "Command palette navigation",
+    "owner": "Eli Park",
+    "status": "promoted",
+    "startedAt": "2026-06-12",
+    "updatedAt": "2026-07-28",
+    "tags": ["navigation", "power-users"],
+    "hypothesis": "A keyboard-first command palette will make frequent navigation measurably faster for multi-project users.",
+    "successCriteria": ["30% adoption among weekly power users", "Common navigation under four seconds", "Task completion satisfaction above 4/5"],
+    "findingsFile": "exp-005.md",
+    "cost": { "money": 760, "hours": 44, "currency": "USD" },
+    "artifacts": [{ "label": "Usability summary", "url": "https://github.com/paulweezydesign/experiments" }],
+    "linearIssue": { "label": "PAU-12", "url": "https://linear.app" },
+    "repository": { "label": "command-menu-prototype", "url": "https://github.com/paulweezydesign/experiments" },
+    "decisions": [
+      { "date": "2026-07-28", "title": "Promote into the product roadmap", "rationale": "All success criteria were met with strong repeat use after four weeks.", "author": "Eli Park" }
+    ]
+  },
+  {
+    "id": "EXP-002",
+    "title": "Daily stand-up prompts",
+    "owner": "Maya Chen",
+    "status": "archived",
+    "startedAt": "2026-05-01",
+    "updatedAt": "2026-06-03",
+    "tags": ["collaboration", "rituals"],
+    "hypothesis": "Daily async prompts will improve visibility for distributed teams with minimal meeting overhead.",
+    "successCriteria": ["Half of invited members respond three times weekly", "Team-lead visibility score improves", "Prompt mute rate below 10%"],
+    "findingsFile": "exp-002.md",
+    "cost": { "money": 240, "hours": 31, "currency": "USD" },
+    "artifacts": [{ "label": "Research notes", "url": "https://github.com/paulweezydesign/experiments" }],
+    "linearIssue": null,
+    "repository": { "label": "experiments", "url": "https://github.com/paulweezydesign/experiments" },
+    "decisions": [
+      { "date": "2026-06-03", "title": "Archive the experiment", "rationale": "Participation decayed after week two and teams reported that the prompt duplicated existing rituals.", "author": "Maya Chen" }
+    ]
+  }
+]

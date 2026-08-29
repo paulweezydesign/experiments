@@ -42,6 +42,11 @@ const getExperimentFromLocation = () => {
   return experiments.find((experiment) => experiment.id === id) ?? null
 }
 
+const scrollToTop = () => {
+  const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false
+  window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' })
+}
+
 function StatusBadge({ status }: { status: ExperimentStatus }) {
   return (
     <span className={`status status--${status}`}>
@@ -89,9 +94,19 @@ function ExperimentCard({ experiment, onOpen }: { experiment: Experiment; onOpen
   )
 }
 
-function Dashboard({ onOpen }: { onOpen: (experiment: Experiment) => void }) {
-  const [query, setQuery] = useState('')
-  const [filter, setFilter] = useState<ExperimentStatus | 'all'>('all')
+function Dashboard({
+  onOpen,
+  query,
+  setQuery,
+  filter,
+  setFilter,
+}: {
+  onOpen: (experiment: Experiment) => void
+  query: string
+  setQuery: (query: string) => void
+  filter: ExperimentStatus | 'all'
+  setFilter: (filter: ExperimentStatus | 'all') => void
+}) {
   const filteredExperiments = useMemo(() => {
     const normalized = query.trim().toLowerCase()
     return experiments.filter((experiment) => {
@@ -131,11 +146,11 @@ function Dashboard({ onOpen }: { onOpen: (experiment: Experiment) => void }) {
             <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search title, owner, tag…" />
             {query && <button aria-label="Clear search" onClick={() => setQuery('')}><X size={16} /></button>}
           </label>
-          <div className="filters" aria-label="Filter by status">
+          <div className="filters" role="group" aria-label="Filter by status">
             <ListFilter size={16} />
-            <button className={filter === 'all' ? 'active' : ''} onClick={() => setFilter('all')}>All</button>
+            <button aria-pressed={filter === 'all'} className={filter === 'all' ? 'active' : ''} onClick={() => setFilter('all')}>All</button>
             {statuses.map((status) => (
-              <button key={status} className={filter === status ? 'active' : ''} onClick={() => setFilter(status)}>
+              <button aria-pressed={filter === status} key={status} className={filter === status ? 'active' : ''} onClick={() => setFilter(status)}>
                 {statusLabels[status]}
               </button>
             ))}
@@ -244,6 +259,8 @@ function DetailView({ experiment, onBack }: { experiment: Experiment; onBack: ()
 
 export default function App() {
   const [selected, setSelected] = useState<Experiment | null>(getExperimentFromLocation)
+  const [query, setQuery] = useState('')
+  const [filter, setFilter] = useState<ExperimentStatus | 'all'>('all')
 
   useEffect(() => {
     const handlePopState = () => setSelected(getExperimentFromLocation())
@@ -252,14 +269,21 @@ export default function App() {
   }, [])
 
   const openExperiment = (experiment: Experiment) => {
-    window.history.pushState({}, '', `?experiment=${experiment.id}`)
+    window.history.pushState({ openedFromRegistry: true }, '', `?experiment=${experiment.id}`)
     setSelected(experiment)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+    scrollToTop()
   }
   const closeExperiment = () => {
-    window.history.pushState({}, '', window.location.pathname)
+    if (!selected) return
+
+    if (window.history.state?.openedFromRegistry) {
+      window.history.back()
+      return
+    }
+
+    window.history.replaceState({}, '', window.location.pathname)
     setSelected(null)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+    scrollToTop()
   }
 
   return (
@@ -272,7 +296,11 @@ export default function App() {
         <div className="topbar__meta"><span>Local registry</span><i /><span>Updated Aug 26, 2026</span></div>
       </nav>
       <div className="page-wrap">
-        {selected ? <DetailView experiment={selected} onBack={closeExperiment} /> : <Dashboard onOpen={openExperiment} />}
+        {selected ? (
+          <DetailView experiment={selected} onBack={closeExperiment} />
+        ) : (
+          <Dashboard onOpen={openExperiment} query={query} setQuery={setQuery} filter={filter} setFilter={setFilter} />
+        )}
       </div>
       <footer><span>Fieldnotes / Experimental practice</span><span>Local-first · File-backed · No integrations</span></footer>
     </div>
